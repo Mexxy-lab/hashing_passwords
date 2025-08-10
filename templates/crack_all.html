@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crack All Hashes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS (CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <script>
+        async function runCrackAll() {
+            const response = await fetch('/crack-all');
+            const result = await response.json();
+
+            const output = document.getElementById('output');
+            output.innerHTML = ''; // Clear previous content
+
+            if (result.success) {
+                if (result.cracked && result.cracked.length > 0) {
+                    const list = document.createElement('ul');
+                    list.className = 'list-group mt-3';
+
+                    result.cracked.forEach(entry => {
+                        const item = document.createElement('li');
+                        item.className = 'list-group-item';
+                        item.innerHTML = `
+                            <strong>Password:</strong> ${entry.password}<br>
+                            <strong>Hash:</strong> ${entry.hash}<br>
+                            <strong>Algorithm:</strong> ${entry.algorithm}
+                        `;
+                        list.appendChild(item);
+                    });
+
+                    output.appendChild(document.createElement('hr'));
+                    output.appendChild(list);
+                } else {
+                    output.innerHTML = '<div class="alert alert-info mt-3">No hashes were cracked.</div>';
+                }
+            } else {
+                output.innerHTML = `<div class="alert alert-danger mt-3">Error: ${result.message || 'Unknown error'}</div>`;
+            }
+        }
+    </script>
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h1 class="card-title text-center mb-4">🔐 Crack All Hashes</h1>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button class="btn btn-primary" onclick="runCrackAll()">Run Dictionary Attack</button>
+                    <p><a href="/history">View Cracked Hash History →</a></p>
+                </div>
+                <div id="output" class="mt-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (for interactivity if needed later) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

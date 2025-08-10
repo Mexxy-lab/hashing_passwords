@@ -1,0 +1,9 @@
+venv
+instance
+*.pyc
+__pycache__
+Notes.txt
+*.sqlite3
+*.db
+*.log
+*.txt

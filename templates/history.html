@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cracked Hashes History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            background: white;
+        }
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #eee;
+        }
+        tr:nth-child(even) {
+            background-color: #f3f3f3;
+        }
+        a {
+            text-decoration: none;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cracked Hashes History</h1>
+    <a href="/crack-page">← Back to Crack Page</a>
+
+    {% if cracked %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Hash</th>
+                    <th>Plaintext Password</th>
+                    <th>Algorithm</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for hash, password, algorithm in cracked %}
+                <tr>
+                    <td>{{ hash }}</td>
+                    <td>{{ password }}</td>
+                    <td>{{ algorithm }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No hashes have been cracked yet.</p>
+    {% endif %}
+</body>
+</html>
